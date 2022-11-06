@@ -25,6 +25,10 @@ describe "TP integrador - Punto5 " {
 		academia.recetario(recetarioA)
 		academia.estudiantes([estudianteA, estudianteB, estudianteC])
 		academia.entrenarEstudiantes()
-		assert.equals([comidaA, comidaB, comidaC, comidaC], estudianteA.preparaciones()) // Facta completar
+
+		assert.equals([comidaA, comidaB, comidaC, comidaC], estudianteA.preparaciones())
+		assert.equals([comidaA, comidaB, comidaC, comidaC], estudianteA.preparaciones())
+		assert.equals([comidaA, comidaB, comidaC, comidaC], estudianteA.preparaciones())
+		assert.equals([comidaA, comidaB, comidaC, comidaC], estudianteA.preparaciones())
 	}
 }
