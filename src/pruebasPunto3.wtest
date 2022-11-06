@@ -1,0 +1,40 @@
+import modelo.*
+
+describe "TP integrador - Punto3"{
+	
+	test "Un Principiante puede preparar solo recetas que no sean dificiles" {
+		
+		const recetaA = new Receta( ingredientes = ["sal", "palta", "aceituna"], nivelDeDificultad = 2)
+		const cocineroA = new Principiante()
+		
+		assert.that(cocineroA.puedePreparar(recetaA))
+	}
+	
+	test "Si puede preparar una comida, la calidad de la comida que puede preparar un Principiante es 
+		  pobre si tiene mas de 3 ingredientes"{
+			
+		const recetaB = new Receta( ingredientes = ["sal", "palta", "aceituna", "espinaca"], nivelDeDificultad = 2)
+		const cocineroB = new Principiante()
+			
+		assert.equals("Pobre",cocineroB.preparacionComida(recetaB).calidad())
+	}
+	
+	test "Si no logró perfeccionar la receta a preparar, a un cocinero Experimentado la comida le sale normal"{
+		
+		const recetaC = new Receta( ingredientes = ["sal", "palta", "aceituna", "espinaca"], nivelDeDificultad = 2)
+		const cocineroC = new Experimentado()
+		
+		assert.equals("Normal",cocineroC.preparacionComida(recetaC).calidad())				
+	}
+	
+	test "Un Chef que logró perfeccionar la receta a preparar, produce una comida de 
+		   calidad superior con un plus equivalente a la cantidad de comidas con recetas similares que 
+  		   haya preparado / 10"{
+  		
+  		const recetaD = new Receta( ingredientes = ["sal", "palta", "aceituna"], nivelDeDificultad = 10)
+  		const comidaD = new ComidaSuperior( ingredientes = ["sal", "palta", "aceituna"], plusComidaSuperior = 10, nivelDeDificultad = 10)
+  		const cocineroD = new Chef(preparaciones = [comidaD, comidaD, comidaD, comidaD, comidaD])
+  		
+  		assert.equals(0.5,cocineroD.preparacionComida(recetaD).plusComidaSuperior())		   	
+   }
+}

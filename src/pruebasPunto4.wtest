@@ -1,0 +1,18 @@
+import modelo.*
+
+describe "TP integrador - Punto4"{
+	
+	test "Las Recetas Gourmet, aportan el doble de experiencia que el resto de las Recetas" {
+	
+		const recetaA = new Receta( ingredientes = ["sal", "palta", "aceituna"], nivelDeDificultad = 10)
+		const recetaB = new RecetaGourmet( ingredientes = ["sal", "palta", "aceituna"], nivelDeDificultad = 10)
+	
+		assert.equals(recetaA.experienciaAportada() * 2,recetaB.experienciaAportada())
+	}
+	
+	test "Las Recetas Gourmet siempre son dificiles"{
+		const recetaC = new RecetaGourmet( ingredientes = ["sal", "palta", "aceituna"], nivelDeDificultad = 1)
+		
+		assert.that(recetaC.esDificil())
+	}
+}

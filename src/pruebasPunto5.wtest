@@ -1,0 +1,30 @@
+import modelo.*
+
+describe "TP integrador - Punto5 " {
+	test "Cuando la academia de cocina entrena a todos sus estudiantes, cada estudiante prepara la receta
+		  que mas le aporta de aquellas que puede preparar" {
+		
+		const recetaA = new Receta( ingredientes = ["sal", "palta", "aceituna"], nivelDeDificultad = 2)
+		const recetaB = new Receta( ingredientes = ["sal", "palta", "aceituna"], nivelDeDificultad = 3)
+		const recetaC = new Receta( ingredientes = ["sal", "palta", "aceituna"], nivelDeDificultad = 5)
+		const recetaD = new Receta( ingredientes = ["sal", "palta", "aceituna"], nivelDeDificultad = 10)
+		const recetaE = new Receta( ingredientes = ["sal", "palta", "aceituna"], nivelDeDificultad = 12)
+		const recetaF = new Receta( ingredientes = ["sal", "palta", "aceituna"], nivelDeDificultad = 14)
+		const recetaG = new Receta( ingredientes = ["sal", "palta", "aceituna"], nivelDeDificultad = 16)
+		
+		const comidaA = new ComidaNormal( ingredientes = ["sal", "palta", "aceituna"], nivelDeDificultad = 2, calidad = "normal")
+		const comidaB = new ComidaSuperior( ingredientes = ["sal", "palta", "aceituna"], calidad = "superior", plusComidaSuperior = 10, nivelDeDificultad = 10)
+		const comidaC = new ComidaPobre( ingredientes = ["sal", "palta", "aceituna"], nivelDeDificultad = 10, puntoMaximo = 3)
+		
+		const recetarioA = [recetaA, recetaB, recetaC, recetaD, recetaE, recetaF, recetaG]
+		
+		const estudianteA = new Principiante(preparaciones = [comidaA, comidaB, comidaC])
+		const estudianteB = new Experimentado(preparaciones = [comidaA, comidaB, comidaC, comidaC])
+		const estudianteC = new Chef(preparaciones = [comidaB, comidaB, comidaB, comidaA])
+		
+		academia.recetario(recetarioA)
+		academia.estudiantes([estudianteA, estudianteB, estudianteC])
+		academia.entrenarEstudiantes()
+		assert.equals([comidaA, comidaB, comidaC, comidaC], estudianteA.preparaciones()) // Facta completar
+	}
+}

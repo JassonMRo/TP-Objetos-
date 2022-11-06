@@ -1,0 +1,30 @@
+import modelo.*
+
+const comidaA = new ComidaNormal( ingredientes = ["sal", "palta", "aceituna"], nivelDeDificultad = 10, calidad = "normal")
+const comidaB = new ComidaSuperior( ingredientes = ["sal", "palta", "aceituna"], calidad = "superior", plusComidaSuperior = 10, nivelDeDificultad = 10)
+const comidaC = new ComidaPobre( ingredientes = ["sal", "palta", "aceituna"], nivelDeDificultad = 10, puntoMaximo = 3)
+ 
+
+describe "TP integrador - Punto2"{
+	
+	test "Un cocinero Principiante supera su nivel si su experiencia es mayor a 100"{
+		
+		const cocineroA = new Principiante(preparaciones = [comidaA, comidaC, comidaA, comidaC, comidaA])
+		
+		assert.equals(true, cocineroA.superoNivelDeAprendizaje())
+	}
+	
+	test "Cuando un cocinero Experimentado ha preparado mas de 5 comidas dificiles supera su nivel" {
+	
+		const cocineroB = new Experimentado(preparaciones = [comidaA, comidaB, comidaC, comidaA, comidaB, comidaC])
+	
+		assert.equals(true, cocineroB.superoNivelDeAprendizaje())
+	}
+	
+	test "Cuando un cocinero Experimentado ha preparado solo 5 comidas dificiles no supera su nivel"{
+		
+		const cocineroC = new Experimentado(preparaciones = [comidaA, comidaB, comidaC, comidaA, comidaB])
+		
+		assert.equals(false, cocineroC.superoNivelDeAprendizaje())
+	}
+}

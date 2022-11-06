@@ -1,0 +1,32 @@
+import modelo.*
+
+const comidaA = new ComidaNormal( ingredientes = ["sal", "palta", "aceituna"], nivelDeDificultad = 2, calidad = "normal")
+const comidaB = new ComidaSuperior( ingredientes = ["sal", "palta", "aceituna"], calidad = "superior", plusComidaSuperior = 10, nivelDeDificultad = 2)
+const comidaC = new ComidaPobre( ingredientes = ["sal", "palta", "aceituna"], nivelDeDificultad = 2, puntoMaximo = 2)
+const comidaD = new ComidaPobre( ingredientes = ["sal", "palta", "aceituna"], nivelDeDificultad = 2, puntoMaximo = 3)
+	
+const cocineroA = new Experimentado(preparaciones = [comidaA, comidaB])
+const cocineroB = new Experimentado(preparaciones = [comidaA, comidaB, comidaC, comidaC])
+const cocineroC = new Experimentado(preparaciones = [comidaA, comidaB, comidaD, comidaD])
+
+describe "TP integrador - Punto1" {
+
+	test " si el cocinero sólo preparó una comida con calidad normal cuya receta tiene 3 ingredientes 
+		   y dificultad 2, y otra comida con la misma receta pero calidad superior y un plus de 10 puntos,
+		   su experiencia debería ser 3*2 + (3*2 + 10) ⇒ 22." {
+		
+		assert.equals(22, cocineroA.experienciaAdquirida())
+	}
+	
+	test "Si también hubiese preparado dos comidas con esa misma receta pero con calidad pobre, 
+		  y se configura que como máximo las comidas pobres den 4 puntos de experiencia, la experiencia 
+		  adquirida por el cocinero sería 3*2 + (3*2 + 10) + 4 + 4 ⇒ 30"{
+		
+		assert.equals(30, cocineroB.experienciaAdquirida())
+	}
+	
+	test "Si luego se decidiera ajustar ese valor máximo a 7 puntos, su experiencia 
+		  sería 3*2 + (3*2 + 10) + 3*2 + 3*2 ⇒ 34"{
+		assert.equals(34, cocineroC.experienciaAdquirida())	
+	}
+}
