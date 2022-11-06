@@ -66,17 +66,19 @@ class Principiante inherits Cocinero{ //elaboran comidas de calidad pobre o norm
 }
 
 class Experimentado inherits Principiante{ //elaboran comidas de calidad normal o superior
-	override method puedePreparar(receta) = super(receta) || self.recetasSimilares(receta) > 0
+	override method puedePreparar(receta) = super(receta) || self.recetasSimilares(receta).size() > 0
 	
 	method recetasSimilares(receta) = 
-		preparaciones.count({comida => comida.ingredientes() == receta.ingredientes() ||
+		preparaciones.filter({comida => comida.ingredientes() == receta.ingredientes() ||
 		receta.nivelDeDificultad() - comida.nivelDeDificultad() <= 1 })
+		
+	method experienciaAdquiridaRecetasSimilares(receta) = self.recetasSimilares(receta).sum({recetaSimilar => recetaSimilar.experienciaAportada()})
 			
 	override method superoNivelDeAprendizaje() = self.comidasDificiles() > 5
 	
 	method comidasDificiles() = preparaciones.count({receta => receta.esDificil()})
 	
-	method perfeccionarReceta(receta) = self.experienciaAdquirida() >= 3*receta.experienciaAportada()
+	method perfeccionarReceta(receta) = self.experienciaAdquiridaRecetasSimilares(receta) >= 3*receta.experienciaAportada()
 	
 	override method preparacionComida(receta){
 		if(self.puedePreparar(receta)){
